@@ -1,38 +1,11 @@
-name: SonarQube Scan
+sonar.projectKey=dishap-22_fastapi-sonarqube-demo
+sonar.organization=dishap-22
 
-on:
-  push:
-    branches:
-      - main
-      - development
+sonar.sources=app
+sonar.tests=tests
 
-  pull_request:
-    branches:
-      - main
+sonar.python.coverage.reportPaths=coverage.xml
 
-jobs:
-  sonar:
-    runs-on: ubuntu-latest
+sonar.sourceEncoding=UTF-8
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install Dependencies
-        run: |
-          pip install -r requirements.txt
-
-      - name: Run Tests
-        run: |
-          pytest --cov=app --cov-report=xml
-
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+sonar.python.version=3.12
